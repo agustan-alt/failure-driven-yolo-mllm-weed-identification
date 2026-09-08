@@ -1,29 +1,44 @@
 # Failure-Driven YOLO–MLLM Weed Identification
 
-Official research code for **failure-driven integration of YOLOv8n and multimodal large language models (MLLMs) for interpretable aquatic weed identification**.
+This repository contains the research artifacts for **Failure-Driven Integration of YOLO and Multimodal Large Language Models for Interpretable Weed Identification**.
 
-This repository accompanies the research study:
+The project investigates the complementary use of **YOLOv8n** and a **multimodal large language model (MLLM)** for aquatic weed identification, with particular emphasis on interpreting anomalous or low-confidence detection cases.
 
-> **Failure-Driven Integration of YOLO and Multimodal Large Language Models for Interpretable Weed Identification**
+## Repository Contents
+
+The repository currently contains the following research artifacts:
+
+```text
+FIX_FINAL_WaterHyacinth_YOLO8_LLM/
+│
+├── FIX_FINAL_WaterHyacinth_YOLO8_LLM.ipynb
+├── FIX_FINAL_WaterHyacinth_YOLO8_LLM.html
+└── FIX_FINAL_WaterHyacinth_YOLO8_LLM.pdf
+```
+
+### `FIX_FINAL_WaterHyacinth_YOLO8_LLM.ipynb`
+
+The Jupyter Notebook contains the executable research workflow and experimental implementation used in the study.
+
+It documents the processing and analysis associated with the YOLOv8n-based aquatic weed detection and the subsequent MLLM-based interpretation of selected detection cases.
+
+### `FIX_FINAL_WaterHyacinth_YOLO8_LLM.html`
+
+An HTML export of the research notebook.
+
+This version is provided for convenient browser-based inspection of the documented workflow and experimental outputs without requiring Jupyter Notebook.
+
+### `FIX_FINAL_WaterHyacinth_YOLO8_LLM.pdf`
+
+A PDF version of the research notebook and experimental documentation.
+
+It can be used as a static reference for reviewing the methodology, results, visualizations, and analysis.
+
+## Research Overview
 
 The study investigates how an MLLM can complement a YOLO-based object detector by providing contextual and natural-language interpretation, particularly for detection cases identified through systematic failure analysis.
 
-## Overview
-
-Conventional object detection systems primarily provide class labels, bounding boxes, and confidence scores. Although these outputs can achieve high detection performance, they may provide limited contextual information for interpreting ambiguous or low-confidence predictions in field conditions.
-
-This project implements a complementary pipeline in which:
-
-1. **YOLOv8n** performs aquatic weed detection.
-2. Detection outputs are evaluated on an independent test set.
-3. **Failure cases** are identified based on predefined criteria.
-4. Selected anomalous cases are passed to a **multimodal large language model (MLLM)**.
-5. The MLLM provides natural-language interpretation and species verification.
-6. The contribution of the interpretive layer is evaluated under different levels of training-data availability.
-
-The MLLM is therefore used as an **interpretive component**, rather than as a replacement for the YOLO detector.
-
-## Research Workflow
+The overall workflow is:
 
 ```text
 Dataset Preparation
@@ -45,18 +60,20 @@ Failure Analysis
         MLLM Interpretation
                 │
                 ▼
-       Species Verification
+        Species Verification
                 │
                 ▼
-   Interpretability Analysis
+      Interpretability Analysis
                 │
                 ▼
-     Limited-Data Robustness
+      Limited-Data Robustness
 ```
+
+YOLOv8n is used as the primary object detector, while the MLLM functions as a complementary interpretive component rather than a replacement for the detector.
 
 ## Target Weed Species
 
-The system focuses on four aquatic weed species:
+The study focuses on four aquatic weed species:
 
 | Class | Common Name        | Scientific Name         |
 | ----- | ------------------ | ----------------------- |
@@ -67,46 +84,23 @@ The system focuses on four aquatic weed species:
 
 ## Dataset
 
-The research uses a hybrid dataset consisting of two data sources.
+The research uses a hybrid dataset consisting of two sources.
 
-### 1. Merauke Aquatic Weed Dataset (MAWD)
+### Merauke Aquatic Weed Dataset (MAWD)
 
-The primary component consists of field images acquired directly by the authors at irrigation sites in **Tanah Miring District, Merauke Regency, South Papua, Indonesia**.
+The primary component consists of field images acquired at irrigation sites in **Tanah Miring District, Merauke Regency, South Papua, Indonesia**.
 
-These images were collected in situ under natural field conditions and represent variations in background, vegetation density, object orientation, lighting, and plant growth stages.
+The images represent natural field conditions, including variations in background, vegetation density, object orientation, lighting, and plant growth stages.
 
-### 2. WaterHyacinth Dataset
+### WaterHyacinth Dataset
 
 The secondary component uses the publicly available **WaterHyacinth Dataset** published by Kabir et al. (2024).
 
-The original dataset should be retained under its original name and cited to its original publication.
-
-### Data Provenance
-
-```text
-Primary field acquisition
-        │
-        ▼
-Merauke Aquatic Weed Dataset (MAWD)
-        │
-        │
-        ├──────────────┐
-                       │
-Public secondary data  │
-        │              │
-        ▼              │
-WaterHyacinth Dataset  │
-        │              │
-        └──────┬───────┘
-               ▼
-       Hybrid Dataset
-```
-
-All images used in the study were annotated using the YOLO object-detection format with bounding boxes for the target weed objects.
+The original dataset should be retained under its original name and cited according to its original publication and licensing requirements.
 
 ## Experimental Configuration
 
-The main experimental configuration described in the study includes:
+The main experimental configuration reported in the study includes:
 
 * **Detector:** YOLOv8n
 * **Pretrained weights:** COCO
@@ -125,30 +119,30 @@ The main experimental configuration described in the study includes:
 
 ## Failure-Driven Evaluation
 
-The central methodological component of this repository is the failure-driven evaluation process.
+The central methodological component of the study is the failure-driven evaluation process.
 
 After YOLOv8n inference on the independent test set, detection outputs are categorized into:
 
-* **Normal/high-confidence detections**
-* **Low-confidence predictions**
-* **Misclassifications**
-* **Missed detections**
+* Normal/high-confidence detections
+* Low-confidence predictions
+* Misclassifications
+* Missed detections
 
-In the reported experimental configuration, a confidence threshold of **0.95** was used to identify low-confidence predictions.
+A confidence threshold of **0.95** was used to identify low-confidence predictions in the reported experimental configuration.
 
-The anomalous cases are subsequently analyzed using the MLLM to determine whether multimodal reasoning can provide additional interpretive value.
+Selected anomalous cases are subsequently analyzed using the MLLM to investigate whether multimodal reasoning can provide additional interpretive value.
 
 ## MLLM Interpretation
 
 The MLLM is used as a complementary interpretive layer.
 
-The detector provides:
+YOLOv8n provides:
 
 * Class label
 * Bounding box
 * Confidence score
 
-The MLLM is used to provide additional information such as:
+The MLLM is used to provide additional interpretation such as:
 
 * Species verification
 * Visual characteristics
@@ -157,26 +151,24 @@ The MLLM is used to provide additional information such as:
 * Management priorities
 * Natural-language explanations
 
-The MLLM is not intended to replace the object detector. Instead, it is activated for cases where the detection output requires additional interpretation.
+The MLLM is not intended to replace the object detector. It is activated for cases where the detection output requires additional interpretation.
 
-## Robustness Under Limited Training Data
+## Limited-Data Robustness
 
-The repository also supports experiments with reduced training-data availability.
+The study also evaluates the detection workflow under reduced training-data availability.
 
-The study evaluates YOLOv8n using:
+The evaluated training-data levels are:
 
-* 10% of the training data
-* 25% of the training data
-* 50% of the training data
-* 100% of the training data
+* 10%
+* 25%
+* 50%
+* 100%
 
 The same independent test subset is used across scenarios to enable consistent comparison.
 
-This experiment is designed to investigate how the relative contribution of the MLLM changes as the amount of detector training data decreases.
-
 ## Reported Results
 
-Under the executed runtime configuration reported in the manuscript:
+Under the experimental configuration reported in the research artifacts:
 
 * YOLOv8n achieved **99.47% mAP@50** on the independent test set.
 * Class-label accuracy reached **99.26%**.
@@ -186,98 +178,19 @@ Under the executed runtime configuration reported in the manuscript:
 * No missed detections were observed.
 * The MLLM recovered the correct ground-truth species in all eight flagged anomaly cases.
 
-The limited-data experiment showed the largest difference between YOLO and MLLM at the 10% training-data level.
-
-## Repository Structure
-
-A recommended project structure is:
-
-```text
-failure-driven-yolo-mllm-weed-identification/
-│
-├── README.md
-├── requirements.txt
-├── environment.yml
-│
-├── configs/
-│   ├── dataset.yaml
-│   └── training.yaml
-│
-├── data/
-│   └── README.md
-│
-├── notebooks/
-│   ├── 01_dataset_preparation.ipynb
-│   ├── 02_yolov8_training.ipynb
-│   ├── 03_test_evaluation.ipynb
-│   ├── 04_failure_analysis.ipynb
-│   ├── 05_mllm_interpretation.ipynb
-│   └── 06_limited_data_robustness.ipynb
-│
-├── src/
-│   ├── dataset/
-│   ├── detection/
-│   ├── evaluation/
-│   ├── failure_analysis/
-│   ├── mllm/
-│   └── visualization/
-│
-├── scripts/
-│   ├── train.py
-│   ├── evaluate.py
-│   ├── failure_analysis.py
-│   └── robustness.py
-│
-├── results/
-│   ├── metrics/
-│   ├── failure_cases/
-│   └── figures/
-│
-└── LICENSE
-```
-
-## Installation
-
-Clone the repository and install the required dependencies.
-
-```bash
-git clone https://github.com/<username>/failure-driven-yolo-mllm-weed-identification.git
-cd failure-driven-yolo-mllm-weed-identification
-
-pip install -r requirements.txt
-```
-
-The exact dependency versions should be specified in `requirements.txt` to support reproducibility.
-
-## Dataset Preparation
-
-Because the dataset contains both primary field-acquired images and a publicly available secondary source, users should obtain and organize the data according to the data-provenance documentation.
-
-The primary field dataset is not redistributed in this repository unless explicitly permitted.
-
-The public secondary dataset should be obtained from its original source and used according to its original licensing and attribution requirements.
-
-After preparation, the dataset should follow the expected YOLO directory structure:
-
-```text
-data/
-└── weed/
-    ├── images/
-    │   ├── train/
-    │   ├── val/
-    │   └── test/
-    │
-    └── labels/
-        ├── train/
-        ├── val/
-        └── test/
-```
+The limited-data experiment showed the largest difference between YOLO and MLLM at the **10% training-data level**.
 
 ## Reproducibility
 
-The experimental workflow uses deterministic execution with a fixed random seed.
+The main executable research workflow is provided in:
 
-For reproducibility, users should keep the following configuration consistent:
+```text
+FIX_FINAL_WaterHyacinth_YOLO8_LLM.ipynb
+```
+
+The HTML and PDF files provide alternative formats for reviewing the documented workflow and experimental outputs.
+
+For reproducibility, the following experimental settings should be kept consistent:
 
 * Dataset split
 * Random seed
@@ -290,11 +203,19 @@ For reproducibility, users should keep the following configuration consistent:
 * Evaluation threshold
 * MLLM model and runtime configuration
 
-Because MLLM outputs can depend on model versions, runtime configuration, prompts, and service updates, exact reproduction of generated natural-language explanations may require recording the model version and prompt configuration used during each experiment.
+Because MLLM outputs may depend on model versions, prompts, runtime configuration, and service updates, exact reproduction of generated natural-language explanations may require recording the model version and prompt configuration used during the experiment.
+
+## Data Availability
+
+The primary field dataset is not redistributed in this repository.
+
+The public secondary dataset should be obtained from its original source and used according to its original licensing and attribution requirements.
+
+The manuscript states that the data and source code supporting the findings are available from the corresponding author upon reasonable request.
 
 ## Citation
 
-If you use this code or the associated research workflow in academic work, please cite the accompanying publication:
+If you use this research or its associated workflow in academic work, please cite the accompanying publication:
 
 ```text
 Latif, A., Jati, H., & Surjono, H. D.
@@ -305,22 +226,8 @@ Journal of Information Systems Engineering and Business Intelligence.
 
 Please replace the bibliographic information above with the final published citation and DOI once available.
 
-## Data Availability
-
-The manuscript states that the data and source code supporting the findings are available from the corresponding author upon reasonable request.
-
-The complete dataset and source code are not stored in a public repository at the time of manuscript preparation.
-
-## Acknowledgment
-
-This research was supported by the academic and institutional environment of the Doctoral Program of Engineering Science, Faculty of Engineering, Universitas Negeri Yogyakarta, and Universitas Musamus.
-
-## License
-
-The source-code license should be specified according to the authors' intended distribution terms.
-
-Dataset licensing and attribution requirements are separate from the software license and must be respected for each external dataset used in the project.
-
 ## Disclaimer
 
-This repository is intended for research and experimental purposes. The MLLM-generated interpretations should not be considered a substitute for expert agronomic assessment. The research specifically identifies species-level verification as the evaluated MLLM contribution, while the factual reliability and quality of agronomic recommendations require further expert validation.
+This repository is intended for research and experimental purposes.
+
+The MLLM-generated interpretations should not be considered a substitute for expert agronomic assessment. The research evaluates species-level verification as an MLLM contribution, while the factual reliability and quality of agronomic recommendations require further expert validation.
