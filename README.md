@@ -52,7 +52,7 @@ To guarantee full transparency and auditability per **FAIR research principles**
 ### 2. Secondary Public Benchmark Dataset
 * **Origin:** Kabir et al. (Mendeley Data, CC BY 4.0)
 * **Purpose:** Taxonomic diversity enhancement across four target tropical taxa (*Lemna minor*, *Eichhornia crassipes*, *Monochoria korsakowii*, *Pistia stratiotes*).
-* **Repository:** [Kaggle Dataset - Mendeley Benchmark](https://www.kaggle.com/datasets/aqilwahid/waterhyacinth-dataset-mendeley)
+* **Repository:** [Dataset - Mendeley Benchmark](https://data.mendeley.com/datasets/vz6z64nwby/1)
 
 ### 3. Dual-Tier Experimental Evaluation
 * **Tier 1 — Full Hybrid Manuscript Benchmark (N = 2,580 images):** The primary research baseline reported in the JISEBI manuscript, integrating primary field captures with secondary open benchmarks (Train: 1,806, Val: 387, Test: 387).
